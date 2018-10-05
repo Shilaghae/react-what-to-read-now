@@ -17,10 +17,19 @@ const jsx = (
   </Provider>
 );
 
-
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
-store.dispatch(startSetShelves(), startSetBooks()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('app'));
+const combineSetBooksAndShelves = () => {
+  return (dispatch) => {
+      return Promise.all([
+          dispatch(startSetBooks()),
+          dispatch(startSetShelves())
+        ]
+      )
+  }
+}
+
+store.dispatch(combineSetBooksAndShelves()).then(() => {
+    ReactDOM.render(jsx, document.getElementById('app'));
 });
 
