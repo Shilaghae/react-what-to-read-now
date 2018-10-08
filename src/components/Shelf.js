@@ -14,7 +14,7 @@ export const Shelf = ({id, title, books, all_books}) => {
                         if(book.id === bid) {
                             return (
                                 <li>
-                                    <Book {...book} /> 
+                                    <Book book={book} shelf_id={id}/> 
                                 </li> 
                             )
                         }
