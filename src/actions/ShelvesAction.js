@@ -1,14 +1,20 @@
 import fixshelves from '../fixtures/shelves'
 
-const setShelves = (shelves = fixshelves) => ({
+const setShelves = (shelves) => ({
     type: 'SET_SHELVES',
     shelves
 });
 
-export const startSetShelves = (shelves) => {
+export const startSetShelves = () => {
     return (dispatch) => {
+        const cachedShelves = localStorage.getItem("shelves");
+        let sv = fixshelves;
+        if(cachedShelves) {
+            sv = JSON.parse(cachedShelves)
+        }
         return new Promise((resolve, reject) => {
-            dispatch(setShelves(shelves))
+            localStorage.setItem("shelves", JSON.stringify(sv));
+            dispatch(setShelves(sv))
             resolve();
         })
     }
@@ -37,8 +43,8 @@ export const moveBook = (shelf_id, new_shelf_id, book_id) => {
                     new_shelves.push(sv);
                 }
             })
-
             return new Promise((resolve, reject) => {
+                localStorage.setItem("shelves", JSON.stringify(new_shelves));
                 dispatch(setShelves(new_shelves))
                 resolve();
             })
