@@ -26,13 +26,13 @@ export class Controller  extends React.Component {
         return (        
             <div className="book-shelf-changer">
                 <select onChange={this.onChange}>
+                    <option value="none">None</option>
                     <option value="move" disabled>Move to...</option>        
                     {
                         this.props.shelves.map((shelf) => (
                             <option key={uuid()} value={shelf.id}>{shelf.title}</option>
                         ))
                     }
-                    <option value="none">None</option>
                 </select>
             </div>
         );

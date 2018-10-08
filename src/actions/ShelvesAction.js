@@ -5,10 +5,10 @@ const setShelves = (shelves = fixshelves) => ({
     shelves
 });
 
-export const startSetShelves = () => {
+export const startSetShelves = (shelves) => {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            dispatch(setShelves())
+            dispatch(setShelves(shelves))
             resolve();
         })
     }
