@@ -8,7 +8,7 @@ export class Controller  extends React.Component {
         const new_shelf_id = e.target.value
         this.props.moveBook(this.props.shelf_id, new_shelf_id, this.props.book.id);
     }
-    
+
     render() {
         return (        
             <div className="book-shelf-changer">
