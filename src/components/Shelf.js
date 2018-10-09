@@ -3,6 +3,8 @@ import Book from './Book';
 import {connect} from 'react-redux';
 
 export const Shelf = ({id, title, books, all_books}) => {
+    console.log('books into shelf', books);
+    console.log('books into shelf', all_books);
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>

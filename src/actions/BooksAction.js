@@ -1,4 +1,5 @@
 import fixbooks from '../fixtures/books'
+import {search} from '../api/BookApi'
 
 const setBooks = (books = fixbooks) => ({
     type: 'SET_BOOKS',
@@ -12,6 +13,28 @@ export const startSetBooks = () => {
                 dispatch(setBooks())
                 resolve();
             }, 0)
+        })
+    }
+}
+
+const searchesBooks = (books) => ({
+    type: 'SEARCH_BOOKS',
+    books
+});
+
+export const startSearchBooks = (query) => {
+    return (dispatch) => {
+        return search(query).then((result) => {
+            console.log('result', result)
+            const books = []
+            result.map((result) => {
+                books.push({
+                    title : result.title,
+                    id: result.id,
+                    imageLinks: result.imageLinks
+                })
+            })
+            dispatch(searchesBooks(books));
         })
     }
 }

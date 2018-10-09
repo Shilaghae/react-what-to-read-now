@@ -1,6 +1,6 @@
 import React from 'react'
 import { Header } from './Header';
-import { SearchPage } from './SearchPage';
+import SearchPage  from './SearchPage';
 import Shelf from './Shelf';
 import { connect } from 'react-redux';
 
@@ -21,7 +21,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         { this.state.showSearchPage ? (
-          <SearchPage />
+          <SearchPage {...this.props}/>
         ) : (
           <div className="list-books">
             <Header />
