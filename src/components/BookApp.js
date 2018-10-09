@@ -3,6 +3,7 @@ import { Header } from './Header';
 import SearchPage  from './SearchPage';
 import Shelf from './Shelf';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 class BooksApp extends React.Component {
   state = {
@@ -31,9 +32,11 @@ class BooksApp extends React.Component {
                 this.props.shelves === 0 ? (
                   <div>No shelves</div>
                 ) : (                
-                  this.props.shelves.map((shelf) => (
-                    <Shelf key={shelf.id} {...shelf} />
-                  ))
+                    this.props.shelves.map((shelf) => {
+                      return (
+                        <Shelf key={uuid()} id={shelf.id} title={shelf.title} books={this.props.books.filter((book) => shelf.books.includes(book.id))} />
+                      )
+                  })
                 )
               }
               </div>

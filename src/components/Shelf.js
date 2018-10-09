@@ -1,26 +1,21 @@
 import React from 'react';
 import Book from './Book';
 import {connect} from 'react-redux';
+import uuid from 'uuid';
 
-export const Shelf = ({id, title, books, all_books}) => {
+export const Shelf = ({id, title, books}) => {
     console.log('books into shelf', books);
-    console.log('books into shelf', all_books);
+
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>
             <div className="bookshelf-books">
             <ol className="books-grid">
             {
-                books.map((bid) => (
-                    all_books.map((book) => {
-                        if(book.id === bid) {
-                            return (
-                                <li>
-                                    <Book book={book} shelf_id={id}/> 
-                                </li> 
-                            )
-                        }
-                    }) 
+                books.map((book) => (
+                    <li key={uuid()}>
+                        <Book book={book} shelf_id={id}/> 
+                    </li> 
                 ))
             }                    
             </ol>

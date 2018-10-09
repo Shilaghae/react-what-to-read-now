@@ -30,7 +30,7 @@ export class SearchPage extends React.Component {
                 </div>
                 </div>
                     <div className="search-books-results">
-                    <Shelf  id={4} title={'Searching'} books={this.props.books} all_books={this.props.books}/> 
+                    <Shelf  id={4} title={'Searching'} books={this.props.books} /> 
                 </div>
             </div>
         )
