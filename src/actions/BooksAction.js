@@ -23,7 +23,7 @@ const searchesBooks = (books) => ({
 });
 
 export const startSearchBooks = (query) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         return search(query).then((result) => {
             console.log('result', result)
             const books = []
@@ -34,7 +34,7 @@ export const startSearchBooks = (query) => {
                     imageLinks: result.imageLinks
                 })
             })
-            dispatch(searchesBooks(books));
+            return dispatch(searchesBooks(books));
         })
     }
 }

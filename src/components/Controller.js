@@ -12,7 +12,7 @@ export class Controller  extends React.Component {
     render() {
         return (        
             <div className="book-shelf-changer">
-                <select onChange={this.onChange} defaultValue={this.props.shelf_id}>
+                <select onChange={this.onChange} defaultValue={this.props.shelf_id }>
                     <option value="move" disabled>Move to...</option>        
                     {
                         this.props.shelves.map((shelf) => {
@@ -21,6 +21,7 @@ export class Controller  extends React.Component {
                             )
                         })
                     }
+                    <option value="4">None</option>
                 </select>
             </div>
         );

@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import uuid from 'uuid';
 
 export const Shelf = ({id, title, books}) => {
-    console.log('books into shelf', books);
 
     return (
         <div className="bookshelf">

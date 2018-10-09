@@ -5,32 +5,47 @@ import { Shelf } from './Shelf';
 
 export class SearchPage extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            startResearch: true
+        }
+    }
+
     onType = (e) => {        
         const type = e.target.value
-        this.props.startSearchBooks(type);
+        this.props.startSearchBooks(type).then((result) => {
+            if(result.books.length > 0) {
+                this.setState({
+                    startResearch: false
+                })
+            } else {
+                this.setState({
+                    startResearch: true
+                })
+            }
+        }).catch((error) => {
+            this.setState({
+                startResearch: true
+            })
+        });
     }
 
     render() {
         console.log('books into shelf', this.props.books);
-        console.log('books into shelf', this.props.all_books);
+        console.log('start', this.props.start);
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
                 <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
                 <div className="search-books-input-wrapper">
-                    {/*
-                        NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                        You can find these search terms here:
-                        https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                        However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                        you don't find a specific author or title. Every search is limited by search terms.
-                    */}
                     <input type="text" placeholder="Search by title or author" onInput={this.onType}/>
                 </div>
                 </div>
                     <div className="search-books-results">
-                    <Shelf  id={4} title={'Searching'} books={this.props.books} /> 
+                    <Shelf  id={4} title={'Searching'} books={this.state.startResearch ? [] : this.props.books} /> 
+                    <div>{this.state.startResearch ? 'No result' : ''}</div>
                 </div>
             </div>
         )
@@ -40,12 +55,10 @@ export class SearchPage extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     startSearchBooks: (query) => dispatch(startSearchBooks(query))
   });
-  
+
 const mapStateToProps = (state) => {  
     return {
-        shelves: state.shelves,
-        books: state.books
+        books: state.books,
     };
 };
-  
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
