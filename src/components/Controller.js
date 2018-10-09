@@ -1,12 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
-import {moveBook} from '../actions/ShelvesAction'
+import {startMoveBook} from '../actions/ShelvesAction'
+import {startAddBook} from '../actions/BooksAction'
 export class Controller  extends React.Component {
     
     onChange = (e) => {        
         const new_shelf_id = e.target.value
-        this.props.moveBook(this.props.shelf_id, new_shelf_id, this.props.book.id);
+        this.props.startAddBook(this.props.book).then(() => {
+            this.props.startMoveBook(this.props.shelf_id, new_shelf_id, this.props.book.id);
+        })
     }
 
     render() {
@@ -29,9 +32,10 @@ export class Controller  extends React.Component {
 }
 
   const mapDispatchToProps = (dispatch) => ({
-    moveBook: (shelf_id, new_shelf_id, book_id) => dispatch(moveBook(shelf_id, new_shelf_id, book_id))
+    startMoveBook: (shelf_id, new_shelf_id, book_id) => dispatch(startMoveBook(shelf_id, new_shelf_id, book_id)),
+    startAddBook: (book) => dispatch(startAddBook(book))
   });
-  
+
   const mapStateToProps = (state) => {  
     return {
       shelves: state.shelves,

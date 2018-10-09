@@ -9,7 +9,7 @@ export const startSetShelves = () => {
     return (dispatch) => {
         const cachedShelves = localStorage.getItem("shelves");
         let sv = fixshelves;
-        if(cachedShelves) {
+        if(cachedShelves !== null) {
             sv = JSON.parse(cachedShelves)
         }
         return new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ export const startSetShelves = () => {
     }
 }
 
-export const moveBook = (shelf_id, new_shelf_id, book_id) => {
+export const startMoveBook = (shelf_id, new_shelf_id, book_id) => {
     return (dispatch, getState) => {
 
         if(shelf_id !== new_shelf_id) {
@@ -48,6 +48,15 @@ export const moveBook = (shelf_id, new_shelf_id, book_id) => {
                 dispatch(setShelves(new_shelves))
                 resolve();
             })
+        }
+    }
+}
+
+export const startAddBookToShelf = (book, shelf_id) => {
+    return (dispatch, getState) => {
+        if(getState().shelves.filter((sv) => sv.id === shelf_id).length === 1) {        
+            sv.books.push(book.id)
+            
         }
     }
 }
