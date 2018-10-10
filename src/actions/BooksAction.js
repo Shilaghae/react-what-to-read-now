@@ -67,25 +67,4 @@ export const addBookToShelf = (change) => {
     }
 }
 
-const searchesBooks = (books) => ({
-    type: 'SEARCH_BOOKS',
-    books
-});
-
-export const startSearchBooks = (query) => {
-    return (dispatch, getState) => {
-        return search(query).then((result) => {
-            const books = []
-            result.map((result) => {
-                books.push({
-                    title : result.title,
-                    id: result.id,
-                    imageLinks: result.imageLinks
-                })
-            })
-            return dispatch(searchesBooks(books));
-        })
-    }
-}
-
 
