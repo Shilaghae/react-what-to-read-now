@@ -1,5 +1,4 @@
 import fixbooks from '../fixtures/books'
-import {search} from '../api/BookApi'
 
 const setBooks = (books) => ({
     type: 'SET_BOOKS',
