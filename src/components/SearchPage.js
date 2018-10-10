@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Shelf } from './Shelf';
 import {addBookToShelf} from '../actions/BooksAction'
 import {startQuery} from '../actions/SearchAction'
-
+import Header from './Header';
 export class SearchPage extends React.Component {
 
     constructor(props) {
@@ -20,6 +20,8 @@ export class SearchPage extends React.Component {
 
     render() {
         return (
+            <div>
+            <Header enabled="true"/>
             <div className="search-books">
                 <div className="search-books-bar">
                 <div className="search-books-input-wrapper">
@@ -30,6 +32,7 @@ export class SearchPage extends React.Component {
                     <Shelf onChange={this.onChange} id="searching" title="Searching" shelf_books={this.props.books} /> 
                     <div>{this.props.books.length === 0 ? 'No result' : ''}</div>
                 </div>
+            </div>
             </div>
         )
     }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Shelf from './Shelf';
+import Header from './Header';
 import uuid from 'uuid';
 import {moveBooksBetweenShelves} from '../actions/BooksAction'
-
 export class HomePage extends React.Component {
     onChange = (change) => {    
         this.props.moveBooksBetweenShelves(change)
@@ -11,20 +11,23 @@ export class HomePage extends React.Component {
 
     render() {
        return ( 
-            <div className="list-books">
-                <div className="list-books-content">
-                <div>              
-                {     
-                    <div>         
-                        <Shelf onChange={this.onChange} key={uuid()} id="currentlyReading" title={"Currently Reading"} shelf_books={this.props.books.filter((book) => book.shelf === 'currentlyReading')} />
-                        <Shelf onChange={this.onChange} key={uuid()} id="wantRead" title={"Want to Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'wantRead')} />
-                        <Shelf onChange={this.onChange} key={uuid()} id="read" title={"Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'read')} />
+           <div>
+            <Header enabled="true"/>
+                <div className="list-books">
+                    <div className="list-books-content">
+                    <div>              
+                    {     
+                        <div>         
+                            <Shelf onChange={this.onChange} key={uuid()} id="currentlyReading" title={"Currently Reading"} shelf_books={this.props.books.filter((book) => book.shelf === 'currentlyReading')} />
+                            <Shelf onChange={this.onChange} key={uuid()} id="wantRead" title={"Want to Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'wantRead')} />
+                            <Shelf onChange={this.onChange} key={uuid()} id="read" title={"Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'read')} />
+                        </div>
+                    }
                     </div>
-                }
+                    </div>
+                    <div className="open-search">
                 </div>
-                </div>
-                <div className="open-search">
-                </div>
+            </div>
             </div>
         )
     }
