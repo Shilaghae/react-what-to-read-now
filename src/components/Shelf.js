@@ -13,7 +13,7 @@ export const Shelf = ({id, title, books}) => {
             {
                 books.map((book) => (
                     <li key={uuid()}>
-                        <Book book={book} shelf_id={id}/> 
+                        <Book book={book}/> 
                     </li> 
                 ))
             }                    

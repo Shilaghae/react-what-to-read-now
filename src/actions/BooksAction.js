@@ -45,21 +45,43 @@ export const startSearchBooks = (query) => {
     }
 }
 
-export const startAddBook = (book) => {
+const changeBookSet = (book) => ({
+    type: 'CHANGE_BOOKS_SET',
+    book
+});
+
+export const startChangeBookSet = (book, new_shelf_id) => {
+    console.log('new shlef id', new_shelf_id)
+    book = {
+        id : book.id,
+        title : book.title,
+        subtitle : book.subtitle,
+        authors : book.authors,
+        shelf_id : new_shelf_id,
+        imageLinks : book.imageLinks,
+    };
+    console.log('new book', book)
     const cached = localStorage.getItem("books");
     let books = [];
     if(cached !== null) {
         books = JSON.parse(cached)
     }
+    
     return (dispatch) => {
         if(books.filter((b) => b.id === book.id).length === 0) {
             books.push(book)
             localStorage.setItem("books", JSON.stringify(books));
-            dispatch(startSetBooks(books))
-        }    
+            dispatch(changeBookSet(book))
+        } else {
+            const newSetBooks = books.filter((b) => b.id !== book.id)
+            newSetBooks.push(book)
+            localStorage.setItem("books", JSON.stringify(newSetBooks));
+            dispatch(changeBookSet(book))
+        }
         return new Promise((resolve) => {
             resolve();
         })
     }
 }
+
 

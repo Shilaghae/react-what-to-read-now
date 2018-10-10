@@ -11,7 +11,7 @@ export default (state = booksReducerDefaultState, action) => {
         ...state,
         ...action.books
       ]
-    case 'ADD_BOOK':
+    case 'CHANGE_BOOKS_SET':
       return [
         ...state,
         ...action.book

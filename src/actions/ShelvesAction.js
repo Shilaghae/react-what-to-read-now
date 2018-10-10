@@ -20,6 +20,11 @@ export const startSetShelves = () => {
     }
 }
 
+const moveBookBetweenShleves = (shelves) => ({
+    type: 'MOVE_BOOK_BETWEEN_SHELVES',
+    shelves
+});
+
 export const startMoveBook = (shelf_id, new_shelf_id, book_id) => {
     return (dispatch, getState) => {
 
@@ -45,18 +50,9 @@ export const startMoveBook = (shelf_id, new_shelf_id, book_id) => {
             })
             return new Promise((resolve, reject) => {
                 localStorage.setItem("shelves", JSON.stringify(new_shelves));
-                dispatch(setShelves(new_shelves))
+                dispatch(moveBookBetweenShleves(new_shelves))
                 resolve();
             })
-        }
-    }
-}
-
-export const startAddBookToShelf = (book, shelf_id) => {
-    return (dispatch, getState) => {
-        if(getState().shelves.filter((sv) => sv.id === shelf_id).length === 1) {        
-            sv.books.push(book.id)
-            
         }
     }
 }

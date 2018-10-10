@@ -17,8 +17,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log('props in app', this.props)
-    console.log('state in app', this.state)
     return (
       <div className="app">
         { this.state.showSearchPage ? (

@@ -2,25 +2,26 @@ import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
 import {startMoveBook} from '../actions/ShelvesAction'
-import {startAddBook} from '../actions/BooksAction'
+import {startChangeBookSet} from '../actions/BooksAction'
 export class Controller  extends React.Component {
     
     onChange = (e) => {        
         const new_shelf_id = e.target.value
-        this.props.startAddBook(this.props.book).then(() => {
-            this.props.startMoveBook(this.props.shelf_id, new_shelf_id, this.props.book.id);
+        const old_shelf_id = this.props.book.shelf_id;
+        this.props.startMoveBook(old_shelf_id, new_shelf_id, this.props.book.id).then(() => {
+            this.props.startChangeBookSet(this.props.book, new_shelf_id);
         })
     }
 
     render() {
         return (        
             <div className="book-shelf-changer">
-                <select onChange={this.onChange} defaultValue={this.props.shelf_id }>
+                <select onChange={this.onChange} defaultValue={this.props.book.shelf_id}>
                     <option value="move" disabled>Move to...</option>        
                     {
                         this.props.shelves.map((shelf) => {
                             return (
-                                <option key={uuid()} value={shelf.id}>{shelf.title}</option>
+                                <option key={uuid()} value={shelf.id}>{shelf.id}</option>
                             )
                         })
                     }
@@ -33,7 +34,7 @@ export class Controller  extends React.Component {
 
   const mapDispatchToProps = (dispatch) => ({
     startMoveBook: (shelf_id, new_shelf_id, book_id) => dispatch(startMoveBook(shelf_id, new_shelf_id, book_id)),
-    startAddBook: (book) => dispatch(startAddBook(book))
+    startChangeBookSet: (book, new_shelf_id) => dispatch(startChangeBookSet(book, new_shelf_id))
   });
 
   const mapStateToProps = (state) => {  

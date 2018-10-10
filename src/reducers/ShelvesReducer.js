@@ -6,6 +6,10 @@ export default (state = shelvesReducerDefaultState, action) => {
       return [   
         ...action.shelves
     ] 
+    case 'MOVE_BOOK_BETWEEN_SHELVES':
+      return [   
+        ...action.shelves
+    ] 
     default:
       return state;
   }

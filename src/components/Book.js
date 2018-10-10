@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import Controller from './Controller';
 import uuid from 'uuid';
 
-export const Book = ({book, shelf_id}) => {
+export const Book = ({book}) => {
     return (
         <div className="books-grid">
             <div key={uuid()} className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
-                    <Controller book={book} shelf_id={shelf_id}/>  
+                    <Controller book={book}/>  
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.authors}</div>
