@@ -12,7 +12,7 @@ export class HomePage extends React.Component {
     render() {
        return ( 
            <div>
-            <Header enabled="true"/>
+            <Header/>
                 <div className="list-books">
                     <div className="list-books-content">
                     <div>              

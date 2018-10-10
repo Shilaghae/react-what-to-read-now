@@ -21,18 +21,19 @@ export class SearchPage extends React.Component {
     render() {
         return (
             <div>
-            <Header enabled="true"/>
-            <div className="search-books">
-                <div className="search-books-bar">
-                <div className="search-books-input-wrapper">
-                    <input type="text" placeholder="Search by title or author" onInput={this.onSearch}/>
-                </div>
-                </div>
-                    <div className="search-books-results">
-                    <Shelf onChange={this.onChange} id="searching" title="Searching" shelf_books={this.props.books} /> 
-                    <div>{this.props.books.length === 0 ? 'No result' : ''}</div>
-                </div>
+            <Header/>
+            <div>
+                <input className="search" type="text" placeholder="Search Books" onInput={this.onSearch}/>
             </div>
+            <div>
+                </div>
+                    <div className="search-books-results">                    
+                    {
+                        this.props.books.length === 0 ? 'No result' : (
+                            <Shelf onChange={this.onChange} id="searching" title="Search Results" shelf_books={this.props.books} /> 
+                        )
+                    }
+                    </div>
             </div>
         )
     }
