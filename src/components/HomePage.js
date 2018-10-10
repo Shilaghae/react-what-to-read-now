@@ -6,7 +6,6 @@ import {moveBooksBetweenShelves} from '../actions/BooksAction'
 
 export class HomePage extends React.Component {
     onChange = (change) => {    
-        console.log('Home Page', change)    
         this.props.moveBooksBetweenShelves(change)
     }
 

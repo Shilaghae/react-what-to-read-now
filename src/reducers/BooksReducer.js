@@ -1,8 +1,6 @@
 const booksReducerDefaultState = [];
 
 export default (state = booksReducerDefaultState, action) => {
-  console.log('action book', action.book)
-  console.log('action book', [...state, action.book])
   switch (action.type) {
     case 'SEARCH_BOOKS':
       return [

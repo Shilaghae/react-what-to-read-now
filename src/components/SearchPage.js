@@ -14,7 +14,6 @@ export class SearchPage extends React.Component {
     }
 
     onChange = (change) => {
-        console.log('Search Page', change)
         this.props.addBookToShelf(change)
     }
 
@@ -38,9 +37,6 @@ export class SearchPage extends React.Component {
     }
 
     render() {
-        console.log('books into shelf', this.props.books);
-        console.log('start', this.props.start);
-
         return (
             <div className="search-books">
                 <div className="search-books-bar">

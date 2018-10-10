@@ -20,7 +20,6 @@ export class Controller  extends React.Component {
     }
 
     render() {
-        console.log('this.props.book.shelf', this.props.book.shelf)
         return (        
             <div className="book-shelf-changer">
                 <select onChange={this.onChange} defaultValue={this.props.book.shelf === undefined ? 'none' : this.props.book.shelf}>

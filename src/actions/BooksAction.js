@@ -75,7 +75,6 @@ const searchesBooks = (books) => ({
 export const startSearchBooks = (query) => {
     return (dispatch, getState) => {
         return search(query).then((result) => {
-            console.log('result', result)
             const books = []
             result.map((result) => {
                 books.push({
