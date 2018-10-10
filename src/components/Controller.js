@@ -20,14 +20,15 @@ export class Controller  extends React.Component {
     }
 
     render() {
+        console.log('this.props.book.shelf', this.props.book.shelf)
         return (        
             <div className="book-shelf-changer">
-                <select onChange={this.onChange} defaultValue={this.props.book.shelf}>
+                <select onChange={this.onChange} defaultValue={this.props.book.shelf === undefined ? 'none' : this.props.book.shelf}>
                     <option value="move" disabled>Move to...</option>                                
                     <option key={uuid()} value="currentlyReading">Currently Reading</option>
                     <option key={uuid()} value="wantRead">Want to Read</option>
                     <option key={uuid()} value="read">Read</option>
-                    <option value="4">None</option>
+                    <option value="none">None</option>
                 </select>
             </div>
         );

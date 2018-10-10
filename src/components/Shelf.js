@@ -11,7 +11,7 @@ export const Shelf = (props) => {
             <div className="bookshelf-books">
             <ol className="books-grid">
             {
-                props.books.map((book) => (
+                props.shelf_books.map((book) => (
                     <li key={uuid()}>
                         <Book book={book} shelf_title={props.title} onChange={props.onChange}/> 
                     </li> 
@@ -24,7 +24,8 @@ export const Shelf = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    all_books: state.books
+    books: state.books,
+    book: state.book
 });
 
 export default connect(mapStateToProps)(Shelf)

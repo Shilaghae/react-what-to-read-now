@@ -23,11 +23,6 @@ export const startSetBooks = () => {
     }
 }
 
-const changeBookSet = (book) => ({
-    type: 'CHANGE_BOOKS_SET',
-    book
-});
-
 export const moveBooksBetweenShelves = (change) => {
     const book = {
         id : change.book.id,
@@ -41,7 +36,34 @@ export const moveBooksBetweenShelves = (change) => {
         const newSetBooks = getState().books.filter((b) => b.id !== book.id)
         newSetBooks.push(book)
         localStorage.setItem("books", JSON.stringify(newSetBooks));
-        return dispatch(setBooks(newSetBooks))
+        return dispatch(startSetBooks(newSetBooks))
+    }
+}
+
+const changeBookSet = (book) => ({
+    type: 'ADD_BOOKS_TO_SET',
+    book
+});
+
+export const addBookToShelf = (change) => {
+    const book = {
+        id : change.book.id,
+        title : change.book.title,
+        subtitle : change.book.subtitle,
+        authors : change.book.authors,
+        shelf : change.new_shelf,
+        imageLinks : change.book.imageLinks,
+    };
+    const cached = localStorage.getItem("books");
+    let books = [];
+    if(cached !== null) {
+        books = JSON.parse(cached)
+    }
+    return (dispatch, getState) => {
+        const newSetBooks = books.filter((b) => b.id !== book.id)
+        newSetBooks.push(book)
+        localStorage.setItem("books", JSON.stringify(newSetBooks));
+        dispatch(changeBookSet(book))
     }
 }
 
@@ -63,39 +85,6 @@ export const startSearchBooks = (query) => {
                 })
             })
             return dispatch(searchesBooks(books));
-        })
-    }
-}
-
-export const startChangeBookSet = (book, new_shelf_id) => {
-    book = {
-        id : book.id,
-        title : book.title,
-        subtitle : book.subtitle,
-        authors : book.authors,
-        shelf_id : new_shelf_id,
-        imageLinks : book.imageLinks,
-    };
-    console.log('new book', book)
-    const cached = localStorage.getItem("books");
-    let books = [];
-    if(cached !== null) {
-        books = JSON.parse(cached)
-    }
-    
-    return (dispatch) => {
-        if(books.filter((b) => b.id === book.id).length === 0) {
-            books.push(book)
-            localStorage.setItem("books", JSON.stringify(books));
-            dispatch(changeBookSet(book))
-        } else {
-            const newSetBooks = books.filter((b) => b.id !== book.id)
-            newSetBooks.push(book)
-            localStorage.setItem("books", JSON.stringify(newSetBooks));
-            dispatch(changeBookSet(book))
-        }
-        return new Promise((resolve) => {
-            resolve();
         })
     }
 }

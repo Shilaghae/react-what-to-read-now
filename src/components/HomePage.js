@@ -5,8 +5,8 @@ import uuid from 'uuid';
 import {moveBooksBetweenShelves} from '../actions/BooksAction'
 
 export class HomePage extends React.Component {
-    onChange = (change) => {
-        console.log('Home Page', change)
+    onChange = (change) => {    
+        console.log('Home Page', change)    
         this.props.moveBooksBetweenShelves(change)
     }
 
@@ -17,15 +17,14 @@ export class HomePage extends React.Component {
                 <div>              
                 {     
                     <div>         
-                        <Shelf onChange={this.onChange} key={uuid()} id="currentlyReading" title={"Currently Reading"} books={this.props.books.filter((book) => book.shelf === 'currentlyReading')} />
-                        <Shelf onChange={this.onChange} key={uuid()} id="wantRead" title={"Want to Read"} books={this.props.books.filter((book) => book.shelf === 'wantRead')} />
-                        <Shelf onChange={this.onChange} key={uuid()} id="read" title={"Read"} books={this.props.books.filter((book) => book.shelf === 'read')} />
+                        <Shelf onChange={this.onChange} key={uuid()} id="currentlyReading" title={"Currently Reading"} shelf_books={this.props.books.filter((book) => book.shelf === 'currentlyReading')} />
+                        <Shelf onChange={this.onChange} key={uuid()} id="wantRead" title={"Want to Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'wantRead')} />
+                        <Shelf onChange={this.onChange} key={uuid()} id="read" title={"Read"} shelf_books={this.props.books.filter((book) => book.shelf === 'read')} />
                     </div>
                 }
                 </div>
                 </div>
                 <div className="open-search">
-                <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
                 </div>
             </div>
         )
@@ -41,4 +40,4 @@ const mapStateToProps = (state) => {
     }
 }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {startSearchBooks} from '../actions/BooksAction'
 import { Shelf } from './Shelf';
+import {addBookToShelf} from '../actions/BooksAction'
 
 export class SearchPage extends React.Component {
 
@@ -13,7 +14,8 @@ export class SearchPage extends React.Component {
     }
 
     onChange = (change) => {
-        console.log('Search Page')
+        console.log('Search Page', change)
+        this.props.addBookToShelf(change)
     }
 
     onType = (e) => {        
@@ -42,13 +44,12 @@ export class SearchPage extends React.Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
                 <div className="search-books-input-wrapper">
                     <input type="text" placeholder="Search by title or author" onInput={this.onType}/>
                 </div>
                 </div>
                     <div className="search-books-results">
-                    <Shelf onChange={this.onChange} id="searching" title="Searching" books={this.state.startResearch ? [] : this.props.books} /> 
+                    <Shelf onChange={this.onChange} id="searching" title="Searching" shelf_books={this.state.startResearch ? [] : this.props.books} /> 
                     <div>{this.state.startResearch ? 'No result' : ''}</div>
                 </div>
             </div>
@@ -57,12 +58,13 @@ export class SearchPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    startSearchBooks: (query) => dispatch(startSearchBooks(query))
+    addBookToShelf: (change) => dispatch(addBookToShelf(change)),
+    startSearchBooks: (type) => dispatch(startSearchBooks(type))
   });
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
     return {
-        books: state.books
-    };
-};
+      books: state.books
+    }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
