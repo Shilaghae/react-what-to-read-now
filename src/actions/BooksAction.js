@@ -23,6 +23,28 @@ export const startSetBooks = () => {
     }
 }
 
+const changeBookSet = (book) => ({
+    type: 'CHANGE_BOOKS_SET',
+    book
+});
+
+export const moveBooksBetweenShelves = (change) => {
+    const book = {
+        id : change.book.id,
+        title : change.book.title,
+        subtitle : change.book.subtitle,
+        authors : change.book.authors,
+        shelf : change.new_shelf,
+        imageLinks : change.book.imageLinks,
+    };
+    return (dispatch, getState) => {
+        const newSetBooks = getState().books.filter((b) => b.id !== book.id)
+        newSetBooks.push(book)
+        localStorage.setItem("books", JSON.stringify(newSetBooks));
+        return dispatch(setBooks(newSetBooks))
+    }
+}
+
 const searchesBooks = (books) => ({
     type: 'SEARCH_BOOKS',
     books
@@ -45,13 +67,7 @@ export const startSearchBooks = (query) => {
     }
 }
 
-const changeBookSet = (book) => ({
-    type: 'CHANGE_BOOKS_SET',
-    book
-});
-
 export const startChangeBookSet = (book, new_shelf_id) => {
-    console.log('new shlef id', new_shelf_id)
     book = {
         id : book.id,
         title : book.title,

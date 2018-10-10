@@ -1,30 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
-import {startMoveBook} from '../actions/ShelvesAction'
-import {startChangeBookSet} from '../actions/BooksAction'
+
 export class Controller  extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            new_shelf : '',
+            book_to_change: props.book
+        }
+    }
     
     onChange = (e) => {        
-        const new_shelf_id = e.target.value
-        const old_shelf_id = this.props.book.shelf_id;
-        this.props.startMoveBook(old_shelf_id, new_shelf_id, this.props.book.id).then(() => {
-            this.props.startChangeBookSet(this.props.book, new_shelf_id);
+        const _new_shelf = e.target.value
+        this.props.onChange({
+            new_shelf : _new_shelf,
+            book : this.state.book_to_change
         })
     }
 
     render() {
         return (        
             <div className="book-shelf-changer">
-                <select onChange={this.onChange} defaultValue={this.props.book.shelf_id}>
-                    <option value="move" disabled>Move to...</option>        
-                    {
-                        this.props.shelves.map((shelf) => {
-                            return (
-                                <option key={uuid()} value={shelf.id}>{shelf.id}</option>
-                            )
-                        })
-                    }
+                <select onChange={this.onChange} defaultValue={this.props.book.shelf}>
+                    <option value="move" disabled>Move to...</option>                                
+                    <option key={uuid()} value="currentlyReading">Currently Reading</option>
+                    <option key={uuid()} value="wantRead">Want to Read</option>
+                    <option key={uuid()} value="read">Read</option>
                     <option value="4">None</option>
                 </select>
             </div>
@@ -32,16 +34,4 @@ export class Controller  extends React.Component {
   };
 }
 
-  const mapDispatchToProps = (dispatch) => ({
-    startMoveBook: (shelf_id, new_shelf_id, book_id) => dispatch(startMoveBook(shelf_id, new_shelf_id, book_id)),
-    startChangeBookSet: (book, new_shelf_id) => dispatch(startChangeBookSet(book, new_shelf_id))
-  });
-
-  const mapStateToProps = (state) => {  
-    return {
-      shelves: state.shelves,
-      books: state.books
-    };
-  };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Controller);
+export default connect()(Controller)

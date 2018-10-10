@@ -3,17 +3,17 @@ import Book from './Book';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
 
-export const Shelf = ({id, title, books}) => {
-
+export const Shelf = (props) => {
     return (
+        
         <div className="bookshelf">
-            <h2 className="bookshelf-title">{title}</h2>
+            <h2 className="bookshelf-title">{props.title}</h2>
             <div className="bookshelf-books">
             <ol className="books-grid">
             {
-                books.map((book) => (
+                props.books.map((book) => (
                     <li key={uuid()}>
-                        <Book book={book}/> 
+                        <Book book={book} shelf_title={props.title} onChange={props.onChange}/> 
                     </li> 
                 ))
             }                    
@@ -23,10 +23,8 @@ export const Shelf = ({id, title, books}) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        all_books: state.books
-    };
-}  
+const mapStateToProps = (state) => ({
+    all_books: state.books
+});
 
 export default connect(mapStateToProps)(Shelf)

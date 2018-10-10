@@ -12,6 +12,10 @@ export class SearchPage extends React.Component {
         }
     }
 
+    onChange = (change) => {
+        console.log('Search Page')
+    }
+
     onType = (e) => {        
         const type = e.target.value
         this.props.startSearchBooks(type).then((result) => {
@@ -44,7 +48,7 @@ export class SearchPage extends React.Component {
                 </div>
                 </div>
                     <div className="search-books-results">
-                    <Shelf  id={4} title={'Searching'} books={this.state.startResearch ? [] : this.props.books} /> 
+                    <Shelf onChange={this.onChange} id="searching" title="Searching" books={this.state.startResearch ? [] : this.props.books} /> 
                     <div>{this.state.startResearch ? 'No result' : ''}</div>
                 </div>
             </div>
@@ -58,7 +62,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {  
     return {
-        books: state.books,
+        books: state.books
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

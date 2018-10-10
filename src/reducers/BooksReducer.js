@@ -8,7 +8,6 @@ export default (state = booksReducerDefaultState, action) => {
       ]
     case 'SET_BOOKS':
       return [
-        ...state,
         ...action.books
       ]
     case 'CHANGE_BOOKS_SET':

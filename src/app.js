@@ -8,7 +8,6 @@ import {startSetBooks} from './actions/BooksAction'
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
-import { startSetShelves } from './actions/ShelvesAction';
 
 const store = configureStore();
 const jsx = (
@@ -19,17 +18,7 @@ const jsx = (
 
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
-const combineSetBooksAndShelves = () => {
-  return (dispatch) => {
-      return Promise.all([
-          dispatch(startSetBooks()),
-          dispatch(startSetShelves())
-        ]
-      )
-  }
-}
-
-store.dispatch(combineSetBooksAndShelves()).then(() => {
+store.dispatch(startSetBooks()).then(() => {
     ReactDOM.render(jsx, document.getElementById('app'));
 });
 
