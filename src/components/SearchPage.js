@@ -46,6 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
+      query: state.search.query,
       books: state.search.results
     }
 }

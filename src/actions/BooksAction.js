@@ -39,11 +39,6 @@ export const moveBooksBetweenShelves = (change) => {
     }
 }
 
-const changeBookSet = (book) => ({
-    type: 'ADD_BOOKS_TO_SET',
-    book
-});
-
 export const addBookToShelf = (change) => {
     const book = {
         id : change.book.id,
@@ -62,7 +57,7 @@ export const addBookToShelf = (change) => {
         const newSetBooks = books.filter((b) => b.id !== book.id)
         newSetBooks.push(book)
         localStorage.setItem("books", JSON.stringify(newSetBooks));
-        dispatch(changeBookSet(book))
+        dispatch(setBooks(newSetBooks))
     }
 }
 
